@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder
+		location="classpath:application.properties" />
+		
+	<bean id="cricket" class="spring.sample.Cricket"
+		init-method="afterCreation" destroy-method="beforeDeletion">
+		<constructor-arg ref="genericFirstAid" />
+		<constructor-arg value="${team.name.cricket}" type="String" />
+	</bean>
+
+	<bean id="basketball" class="spring.sample.BasketBall"
+		scope="prototype">
+		<property name="medicalService" ref="FirstAidForBasketBall" />
+		<property name="teamName" value="${team.name.basketball}" />
+	</bean>
+
+	<bean id="genericFirstAid"
+		class="spring.sample.FirstAidMedicalService" />
+
+	<bean id="FirstAidForBasketBall"
+		class="spring.sample.FirstAidForBasketBall" />
+</beans> 
